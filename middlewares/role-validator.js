@@ -31,5 +31,6 @@ export const hasRole = (...roles) => {
                 msg: 'No tiene autorización para ejecutar esa acción.',
             });
         }
+        next();
     };
 };
