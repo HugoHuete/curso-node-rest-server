@@ -52,10 +52,11 @@ const usuariosPatch = (req, res = response) => {
 
 const usuariosDelete = async (req, res = response) => {
     const { id } = req.params;
+    const authedUser = req.authUser
 
-    const user =  await User.findByIdAndUpdate(id, {status:false})
+    const user = await User.findByIdAndUpdate(id, { status: false });
 
-    res.json(user);
+    res.json({ user, authedUser });
 };
 
 export {

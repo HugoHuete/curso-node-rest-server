@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { fieldValidator } from '../middlewares/field-validator.js';
+import { fieldValidator, jwtValidator, hasRole } from '../middlewares/index.js';
+
 import {
     emailExists,
     isValidRole,
@@ -15,7 +16,7 @@ import {
     usuariosPatch,
 } from '../controllers/user.js';
 
-const router = Router();
+export const router = Router();
 
 router.get('/', usuariosGet);
 
@@ -47,6 +48,9 @@ router.post(
 router.delete(
     '/:id',
     [
+        jwtValidator,
+        hasRole('ADMIN_ROLE', 'SALES_ROLE'), // hasrole es una funcion que retorna un middleware
+        //hasAdminRole,
         check('id', 'No es un ID válido').isMongoId().custom(userIdExists),
         fieldValidator,
     ],
@@ -54,5 +58,3 @@ router.delete(
 );
 
 router.patch('/', usuariosPatch);
-
-export default router;
