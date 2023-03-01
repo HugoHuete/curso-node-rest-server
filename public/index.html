@@ -32,7 +32,7 @@
         <script>
             function handleCredentialResponse(response) {
                 const body = { id_token: response.credential };
-                fetch('http://localhost:8080/api/auth/google', {
+                fetch(`${window.location.origin}/api/auth/google`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -41,19 +41,22 @@
                 })
                     .then((resp) => resp.json())
                     .then((resp) => {
-                        localStorage.setItem('email', resp.user.email)
+                        localStorage.setItem('email', resp.user.email);
                     })
                     .catch(console.warn);
             }
 
-            const button = document.getElementById('google_signout')
+            const button = document.getElementById('google_signout');
             button.onclick = () => {
-                google.accounts.id.disableAutoSelect()
-                google.accounts.id.revoke(localStorage.getItem('email'), done => {
-                    localStorage.clear()
-                    location.reload()
-                })
-            }
+                google.accounts.id.disableAutoSelect();
+                google.accounts.id.revoke(
+                    localStorage.getItem('email'),
+                    (done) => {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                );
+            };
         </script>
     </body>
 </html>
