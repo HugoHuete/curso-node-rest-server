@@ -33,7 +33,7 @@ router.put(
 router.post(
     '/',
     [
-        check('name', 'El nombre es requerido.').not().isEmpty(),
+        check('name', 'El nombre es requerido.').notEmpty(),
         check(
             'password',
             'La contraseña debe contener al menos 6 caracteres.'
