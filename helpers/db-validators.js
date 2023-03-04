@@ -48,4 +48,7 @@ const productIdExists = async (id = '') => {
         throw new Error(`El id '${id}' no existe.`);
     }
 };
+
+
+
 export { isValidRole, emailExists, userIdExists, categoryIdExists, productIdExists };
